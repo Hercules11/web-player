@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多功能音乐播放器</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- 视图容器：包含播放器和播放列表两个视图 -->
+        <div class="view-container">
+            <!-- 视图1: 播放器和歌词 -->
+            <div id="player-view" class="view active">
+                <div id="current-song-info">
+                    <h3>请选择歌曲</h3>
+                    <p>...</p>
+                </div>
+                <audio id="audio" controls></audio>
+                <div id="lyrics-container" class="lyrics-container">
+                    <p>歌词将显示在这里</p>
+                </div>
+            </div>
+
+            <!-- 视图2: 歌曲列表 -->
+            <div id="playlist-view" class="view">
+                <h2>歌曲列表</h2>
+                <ul id="playlist">
+                    <!-- JS动态生成 -->
+                </ul>
+            </div>
+        </div>
+
+<!-- 移动端底部的标签导航栏 -->
+        <nav class="tab-nav">
+            <button data-view="player-view" class="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                <span>正在播放</span>
+            </button>
+            <button data-view="playlist-view">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>歌曲列表</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="./js/index.js"></script>
+</body>
+</html>

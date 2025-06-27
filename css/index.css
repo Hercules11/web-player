@@ -1,0 +1,250 @@
+/* --- 通用样式 --- */
+:root {
+    --primary-color: #007bff;
+    --text-color: #333;
+    --text-light: #666;
+    --bg-color: #f0f2f5;
+    --panel-bg: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    color: var(--text-color);
+    /* 确保在移动端，应用高度不会超过视口 */
+    /* --- 修改这里 --- */
+    /* height: 100vh; */
+    /* 为不支持 dvh 的旧浏览器提供后备 */
+    height: 100dvh;
+    /* 优先使用动态视口高度 */
+    overflow: hidden;
+}
+
+.app-container {
+    width: 100%;
+    height: var(--app-height);
+    /* 使用 JS 设置的高度 */
+    /* height: 100%; */
+    display: flex;
+    flex-direction: column;
+    /* 移动端：视图在上，导航在下 */
+    background-color: var(--panel-bg);
+}
+
+/* --- 移动端布局 (默认) --- */
+
+.view-container {
+    flex: 1;
+    /* 占据所有可用空间 */
+    position: relative;
+    overflow: hidden;
+}
+
+.view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.view.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#player-view {
+    /* 内部元素布局 */
+}
+
+#current-song-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#current-song-info h3 {
+    margin: 0;
+}
+
+#current-song-info p {
+    margin: 5px 0 0;
+    color: var(--text-light);
+}
+
+audio {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.lyrics-container {
+    flex: 1;
+    /* 占据剩余空间 */
+    overflow-y: scroll;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+.lyrics-container::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.lyrics-container p {
+    margin: 15px 0;
+    padding: 10px;
+    font-size: 16px;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+.lyrics-container p:hover {
+    background-color: #f5f5f5;
+}
+
+.lyrics-container p.active {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 18px;
+    transform: scale(1.05);
+}
+
+#playlist-view h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+#playlist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+}
+
+#playlist li {
+    padding: 12px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#playlist li:last-child {
+    border-bottom: none;
+}
+
+#playlist li:hover {
+    background-color: #f5f5f5;
+}
+
+#playlist li.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+}
+
+
+/* 底部标签导航 */
+.tab-nav {
+    display: flex;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--panel-bg);
+}
+
+.tab-nav button {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 12px 0;
+    font-size: 12px;
+    color: var(--text-light);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s;
+}
+
+.tab-nav button svg {
+    stroke: var(--text-light);
+    transition: stroke 0.2s;
+}
+
+.tab-nav button.active {
+    color: var(--primary-color);
+}
+
+.tab-nav button.active svg {
+    stroke: var(--primary-color);
+}
+
+
+/* --- 桌面端布局 (@media query) --- */
+@media (min-width: 768px) {
+    body {
+        /* 恢复居中显示 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .app-container {
+        flex-direction: row;
+        /* 桌面端：左右布局 */
+        width: 90%;
+        max-width: 900px;
+        height: 600px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 隐藏移动端导航 */
+    .tab-nav {
+        display: none;
+    }
+
+    .view-container {
+        display: flex;
+        flex: 1;
+    }
+
+    /* 让两个视图都可见并排显示 */
+    .view {
+        position: static;
+        /* 覆盖 absolute 定位 */
+        opacity: 1;
+        visibility: visible;
+        height: auto;
+        /* 覆盖 100% 高度 */
+        display: flex;
+        /* 确保flex布局生效 */
+    }
+
+    #playlist-view {
+        width: 280px;
+        border-right: 1px solid var(--border-color);
+        padding: 20px;
+    }
+
+    #player-view {
+        flex: 1;
+        padding: 24px;
+    }
+}
