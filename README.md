@@ -7,5 +7,5 @@ AI 太强了，以后没有 AI 辅助我就不写代码了，就像没有浏览�
 
 PC 端页面展示：
 ![](./assets/demo/image.png)
-Moble 端页面展示：
+Mobile 端页面展示：
 ![](./assets/demo/image%20copy.png)
